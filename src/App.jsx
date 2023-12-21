@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Navbar from './components/NavBar/Navbar';
 import { Logout } from './components/Logout/Logout';
 import Group from './pages/Group/Group';
+import EventDetail from './pages/EventDetail/EventDetail';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/logout' element={<Logout/>}/>
         <Route path='/groupdetailpage/:groupCode' element={ <Group /> }/>
+        <Route path='/event/:eventId' element={ <EventDetail /> }/>
       </Routes>
     </main>
   );
