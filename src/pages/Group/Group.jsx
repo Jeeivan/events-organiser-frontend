@@ -11,16 +11,48 @@ export default function Group() {
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [groupMembers, setGroupMembers] = useState([]);
+
+  async function fetchGroupId() {
+    try {
+        const response = await fetch(`http://localhost:3006/group/display/single/${groupCode}`)
+        const data = await response.json()
+        console.log(data);
+
+        if (response.ok) {
+            setGroupId(data._id);
+          } else {
+            console.log('Failed to fetch Id');
+          }
+        } catch (error) {
+          console.error('Error fetching events', error);
+        }
+      };
+
+      const fetchGroupMembers = async () => {
+        try {
+          const response = await fetch(`http://localhost:3006/users/display/${groupId}`);
+          const data = await response.json();
+    
+          if (response.ok) {
+            setGroupMembers(data);
+          } else {
+            console.log('Failed to fetch group members');
+          }
+        } catch (error) {
+          console.error('Error fetching group members', error);
+        }
+      };
 
   const fetchEvents = async () => {
     try {
       const response = await fetch(`http://localhost:3006/event/display/${groupCode}`);
       const data = await response.json();
+      console.log(data);
 
       if (response.ok) {
         setEvents(data);
-        const Id = data.length > 0 ? data[0].groupId : null;
-        setGroupId(Id);
+        // const Id = data.length > 0 ? data[0].groupId : null;
       } else {
         console.log('Failed to fetch events');
       }
@@ -31,8 +63,15 @@ export default function Group() {
 
   useEffect(() => {
     fetchEvents();
+    fetchGroupId();
     // eslint-disable-next-line
   }, [groupCode]);
+
+  useEffect(() => {
+    if (groupId) {
+      fetchGroupMembers();
+    }
+  }, [groupId]);
 
   async function createEvent() {
     try {
@@ -70,7 +109,13 @@ export default function Group() {
 
   return (
     <div>
-      <h2>Group {groupCode}</h2>
+      <h2>Group Code - {groupCode}</h2>
+      <h3>Group Members</h3>
+      <ul>
+        {groupMembers.map((member) => (
+            <li key={member._id}>{member.name}</li>
+        ))}
+      </ul>
       <h3>Events:</h3>
       <ul>
         {events.map(event => (
