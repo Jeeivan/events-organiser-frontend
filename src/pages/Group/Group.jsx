@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Group() {
   const { groupCode } = useParams();
+  localStorage.setItem("groupCode", groupCode)
   const [events, setEvents] = useState([]);
   const [groupId, setGroupId] = useState('')
   const [name, setName] = useState('');
@@ -13,6 +14,8 @@ export default function Group() {
   const [time, setTime] = useState('');
   const [groupMembers, setGroupMembers] = useState([]);
 
+  console.log(groupId);
+
   async function fetchGroupId() {
     try {
         const response = await fetch(`http://localhost:3006/group/display/single/${groupCode}`)
@@ -21,6 +24,7 @@ export default function Group() {
 
         if (response.ok) {
             setGroupId(data._id);
+            localStorage.setItem("groupId", data._id)
           } else {
             console.log('Failed to fetch Id');
           }
