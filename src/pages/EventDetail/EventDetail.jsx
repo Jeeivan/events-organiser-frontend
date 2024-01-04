@@ -7,6 +7,7 @@ export default function EventDetail() {
     const [groupMembers, setGroupMembers] = useState([]);
     const [messages, setMessages] = useState([])
     const [eventMessage, setEventMessage] = useState('')
+    const [attendanceMembers, setAttendanceMembers] = useState([])
     const navigate = useNavigate();
     const groupId = localStorage.getItem('groupId')
     const email = localStorage.getItem('email')
@@ -30,6 +31,7 @@ export default function EventDetail() {
         fetchEvents();
         fetchMessages();
         fetchGroupMembers();
+        displayAttendance();
         // eslint-disable-next-line
       }, [groupId]);
 
@@ -120,6 +122,68 @@ async function deleteEvent() {
     }
 }
 
+async function displayAttendance() {
+    try {
+        const response = await fetch(`http://localhost:3006/attendance/display/${eventId}`)
+        const data = await response.json();
+
+        if (response.ok) {
+            setAttendanceMembers(data)
+        } else {
+            console.log('Failed to fetch attendance members');
+        }
+    } catch (error) {
+        console.error("Error fetching attendance members", error)
+    }
+}
+
+async function setGoing() {
+    try {
+        const response = await fetch(`http://localhost:3006/attendance/set/${eventId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email, 
+                going: true,
+            }),
+        })
+
+        if (response.ok) {
+            console.log("Attendance set succesfully");
+            displayAttendance()
+        } else {
+            console.log("Error setting attendance");
+        }
+    } catch (error) {
+        console.error("Error setting attendance", error)
+    }
+}
+async function setNotGoing() {
+    try {
+        const response = await fetch(`http://localhost:3006/attendance/set/${eventId}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email, 
+                going: false,
+            }),
+        })
+
+        if (response.ok) {
+            console.log("Attendance set succesfully");
+            displayAttendance()
+        } else {
+            console.log("Error setting attendance");
+        }
+    } catch (error) {
+        console.error("Error setting attendance", error)
+    }
+}
+
   return (
     <div>
               <h3>Group Members</h3>
@@ -137,6 +201,26 @@ async function deleteEvent() {
         <Link to={`/groupdetailpage/${groupCode}`}>
             <button>Create Event</button>
         </Link>
+        <h3>Attendance</h3>
+<ul>
+    {groupMembers.map((groupMember) => {
+        // Check if the group member is in the attendance list
+        const attendanceMember = attendanceMembers.find(
+            (attendance) => attendance.userName === groupMember.name
+        );
+
+        // If the member is not found in attendance, then it will display that they have not decided
+        const status = attendanceMember ? (attendanceMember.going ? 'is going' : 'is not going') : 'has not decided';
+
+        return (
+            <li key={groupMember._id}>
+                <p>{groupMember.name} {status}</p>
+            </li>
+        );
+    })}
+</ul>
+<button onClick={setGoing}>Going</button>
+<button onClick={setNotGoing}>Not Going</button>
         <h3>Chat</h3>
         <ul>
             {messages.map((message) => (
