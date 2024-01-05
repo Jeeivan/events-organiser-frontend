@@ -36,29 +36,46 @@ export default function Login() {
     }
 
   return (
-    <div>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="email">
-                    <strong>Email</strong>
-                </label>
-                <input type="email" placeholder='Enter Email' name='email' onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-            <div>
-                <label htmlFor="email">
-                    <strong>Password</strong>
-                </label>
-                <input type="password" placeholder='Enter Password' name='password' onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-            <button type='submit'>
-                Login
-            </button>
-        </form>
-            <p>Don't have an account?</p>
-            <Link to="/register">
-                Register
-            </Link>
+    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm font-semibold">
+            Email
+          </label>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            name="email"
+            className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-sm font-semibold">
+            Password
+          </label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            className="w-full border p-2 rounded focus:outline-none focus:border-blue-500"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
+        >
+          Login
+        </button>
+      </form>
+      <p className="mt-4 text-sm">
+        Don't have an account?{" "}
+        <Link to="/register" className="text-blue-500">
+          Register
+        </Link>
+      </p>
     </div>
-  )
+  );
 }

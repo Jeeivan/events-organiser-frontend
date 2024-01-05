@@ -83,30 +83,60 @@ export default function Home() {
   }
  }
 
-  return (
-    <div>
-      {user && <h3>Welcome {user}!</h3>}
+ return (
+  <div className="container mx-auto p-6">
+    {user && <h3 className="text-2xl font-bold mb-4">Welcome {user}!</h3>}
 
-      <div>
-        <h4>Your Groups</h4>
-        {userGroups.map(group => (
-          <Link to={`/groupdetailpage/${group.code}`} key={group._id}><h2>{group.name}</h2></Link>
-        ))}
-      </div>
-
-      <h4>Join a Group!</h4>
-      <input
-        type="text"
-        placeholder="Enter your group code"
-        value={groupCode}
-        onChange={(e) => setGroupCode(e.target.value)}
-      />
-      <button onClick={() => joinGroup(groupCode)}>Join</button>
-
-      <h4>Create a Group!</h4>
-      <input type="text" placeholder="Enter your group name" value={name}
-        onChange={(e) => setName(e.target.value)} />
-      <button onClick={createGroup}>Create</button>
+    <div className="mt-4 mb-8">
+      <h4 className="text-xl font-semibold mb-2">Your Groups</h4>
+      {userGroups.map(group => (
+        <Link
+          to={`/groupdetailpage/${group.code}`}
+          key={group._id}
+          className="block bg-gray-100 p-4 rounded-md mb-2 hover:bg-gray-200"
+        >
+          <h2 className="text-lg font-semibold">{group.name}</h2>
+        </Link>
+      ))}
     </div>
-  );
+
+    <div className="mb-8 text-center">
+      <h4 className="text-xl font-semibold mb-2">Join a Group!</h4>
+      <div className="flex items-center justify-center space-x-4">
+        <input
+          type="text"
+          placeholder="Enter your group code"
+          value={groupCode}
+          onChange={(e) => setGroupCode(e.target.value)}
+          className="border p-2 w-48 focus:outline-none focus:border-blue-500"
+        />
+        <button
+          onClick={() => joinGroup(groupCode)}
+          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700"
+        >
+          Join
+        </button>
+      </div>
+    </div>
+
+    <div className="text-center">
+      <h4 className="text-xl font-semibold mb-2">Create a Group!</h4>
+      <div className="flex items-center justify-center space-x-4">
+        <input
+          type="text"
+          placeholder="Enter your group name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="border p-2 w-48 focus:outline-none focus:border-blue-500"
+        />
+        <button
+          onClick={createGroup}
+          className="bg-green-500 text-white p-2 rounded-md hover:bg-green-700"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+);
 }
