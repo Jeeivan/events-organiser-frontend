@@ -108,7 +108,7 @@ export default function Home() {
           placeholder="Enter your group code"
           value={groupCode}
           onChange={(e) => setGroupCode(e.target.value)}
-          className="border p-2 w-48 focus:outline-none focus:border-blue-500"
+          className="border p-2 w-55 focus:outline-none focus:border-blue-500"
         />
         <button
           onClick={() => joinGroup(groupCode)}
@@ -127,7 +127,7 @@ export default function Home() {
           placeholder="Enter your group name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border p-2 w-48 focus:outline-none focus:border-blue-500"
+          className="border p-2 w-55 focus:outline-none focus:border-blue-500"
         />
         <button
           onClick={createGroup}

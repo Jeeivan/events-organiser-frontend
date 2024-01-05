@@ -111,47 +111,92 @@ export default function Group() {
       }
      }
 
-  return (
-    <div>
-      <h2>Group Code - {groupCode}</h2>
-      <h3>Group Members</h3>
-      <ul>
-        {groupMembers.map((member) => (
-            <li key={member._id}>{member.name}</li>
-        ))}
-      </ul>
-      <h3>Events:</h3>
-      <ul>
-        {events.map(event => (
-        <div key={event._id}>
-            <Link to={`/event/${event._id}`}>
-              <p>{event.name}</p>
-            </Link>
-      </div>
-        ))}
-      </ul>
-      <h3>Create Event:</h3>
-      <label>
-        Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      </label>
-      <label>
-        Description:
-        <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-      </label>
-      <label>
-        Location:
-        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
-      </label>
-      <label>
-        Date:
-        <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
-      </label>
-      <label>
-        Time:
-        <input type="text" value={time} onChange={(e) => setTime(e.target.value)} />
-      </label>
-      <button onClick={createEvent}>Create Event</button>
-    </div>
-  );
-}
+     return (
+        <div className="container mx-auto p-6">
+          <h2 className="text-3xl font-bold mb-4">Group Code - {groupCode}</h2>
+          <p className='mb-4'>Give this code to allow others to join your group!</p>
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold mb-2">Group Members</h3>
+            <ul className="list-none p-0">
+              {groupMembers.map((member) => (
+                  <li key={member._id} className="mb-2">{member.name}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold mb-2">Events</h3>
+            <ul className="list-none p-0">
+              {events.map(event => (
+                <li key={event._id} className="mb-2">
+                  <Link to={`/event/${event._id}`} className="text-blue-500 hover:underline">
+                    {event.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Create Event</h3>
+            <form>
+          <label className="block mb-2">
+            <span className="text-gray-700">Name:</span>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="border p-2 w-full focus:outline-none focus:border-blue-500"
+              placeholder="Enter the Name of Event"
+            />
+          </label>
+          <label className="block mb-2">
+            <span className="text-gray-700">Description:</span>
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="border p-2 w-full focus:outline-none focus:border-blue-500"
+              placeholder="Enter the Description of Event"
+            />
+          </label>
+          <label className="block mb-2">
+            <span className="text-gray-700">Location:</span>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="border p-2 w-full focus:outline-none focus:border-blue-500"
+              placeholder="Enter the Location of Event"
+            />
+          </label>
+          <label className="block mb-2">
+            <span className="text-gray-700">Date:</span>
+            <input
+              type="text"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="border p-2 w-full focus:outline-none focus:border-blue-500"
+              placeholder="Enter the Date of Event"
+            />
+          </label>
+          <label className="block mb-4">
+            <span className="text-gray-700">Time:</span>
+            <input
+              type="text"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              className="border p-2 w-full focus:outline-none focus:border-blue-500"
+              placeholder="Enter the Time of Event"
+            />
+          </label>
+          <button
+            type="button"
+            onClick={createEvent}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Create Event
+          </button>
+        </form>
+          </div>
+        </div>
+      );
+    }

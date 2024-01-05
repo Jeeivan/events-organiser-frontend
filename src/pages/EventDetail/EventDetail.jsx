@@ -184,56 +184,99 @@ async function setNotGoing() {
     }
 }
 
-  return (
-    <div>
-              <h3>Group Members</h3>
-      <ul>
-        {groupMembers.map((member) => (
-            <li key={member._id}>{member.name}</li>
-        ))}
-      </ul>
-              <h3>Event:</h3>
-        <p>{events.name}</p>
-        <p>{events.description}</p>
-        <p>{events.location}</p>
-        <p>{events.date}</p>
-        <button onClick={deleteEvent}>Delete Event</button>
-        <Link to={`/groupdetailpage/${groupCode}`}>
-            <button>Create Event</button>
-        </Link>
-        <h3>Attendance</h3>
-<ul>
-    {groupMembers.map((groupMember) => {
-        // Check if the group member is in the attendance list
-        const attendanceMember = attendanceMembers.find(
-            (attendance) => attendance.userName === groupMember.name
-        );
-
-        // If the member is not found in attendance, then it will display that they have not decided
-        const status = attendanceMember ? (attendanceMember.going ? 'is going' : 'is not going') : 'has not decided';
-
-        return (
-            <li key={groupMember._id}>
-                <p>{groupMember.name} {status}</p>
-            </li>
-        );
-    })}
-</ul>
-<button onClick={setGoing}>Going</button>
-<button onClick={setNotGoing}>Not Going</button>
-        <h3>Chat</h3>
-        <ul>
-            {messages.map((message) => (
-                <li key={message._id}>
-                    <p>{message.userName} says</p>
-                    <p>At {new Date(message.date).toLocaleTimeString()}</p>
-                    <p>{message.message}</p>
+return (
+    <div className="container mx-auto p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div>
+          <h3 className="text-3xl font-bold mb-4">Event Details:</h3>
+          <p className="mb-2">{events.name}</p>
+          <p className="mb-2">{events.description}</p>
+          <p className="mb-2">{events.location}</p>
+          <p className="mb-4">{events.date}</p>
+          <button
+            onClick={deleteEvent}
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 mr-5"
+          >
+            Delete Event
+          </button>
+          <Link to={`/groupdetailpage/${groupCode}`}>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              Create Event
+            </button>
+          </Link>
+        </div>
+        <div>
+          <h3 className="text-3xl font-bold mb-4">Members Attendance</h3>
+          <ul className="list-none p-0">
+            {groupMembers.map((groupMember) => {
+              const attendanceMember = attendanceMembers.find(
+                (attendance) => attendance.userName === groupMember.name
+              );
+              const status = attendanceMember
+                ? attendanceMember.going
+                  ? "is going"
+                  : "is not going"
+                : "has not decided";
+  
+              // Conditionally set text color based on attendance status
+              const textColorClass = attendanceMember
+                ? attendanceMember.going
+                  ? "text-green-500"
+                  : "text-red-500"
+                : "text-purple-500";
+  
+              return (
+                <li key={groupMember._id} className={`mb-2 ${textColorClass}`}>
+                  <p>
+                    {groupMember.name} {status}
+                  </p>
                 </li>
-            ))}
+              );
+            })}
+          </ul>
+          <button
+            onClick={setGoing}
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-4"
+          >
+            Going
+          </button>
+          <button
+            onClick={setNotGoing}
+            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+          >
+            Not Going
+          </button>
+        </div>
+      </div>
+      <div>
+        <h3 className="text-3xl font-bold mb-4">Chat</h3>
+        <ul className="mb-4">
+          {messages.map((message) => (
+            <li key={message._id} className="mb-4">
+              <p className="text-gray-700">
+                {message.userName} says at{" "}
+                {new Date(message.date).toLocaleTimeString()}
+              </p>
+              <p>{message.message}</p>
+            </li>
+          ))}
         </ul>
-        <input type="text" placeholder="Message" value={eventMessage}
-        onChange={(e) => setEventMessage(e.target.value)}/>
-        <button onClick={createMessage}>Send</button>
+        <div className="flex items-center space-x-4">
+          <input
+            type="text"
+            placeholder="Type Your Message Here"
+            value={eventMessage}
+            onChange={(e) => setEventMessage(e.target.value)}
+            className="border p-2 w-full focus:outline-none focus:border-blue-500"
+          />
+          <button
+            onClick={createMessage}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Send
+          </button>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
