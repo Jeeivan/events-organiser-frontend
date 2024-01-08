@@ -13,6 +13,7 @@ export default function Group() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [groupMembers, setGroupMembers] = useState([]);
+  const email = localStorage.getItem('email')
 
   console.log(groupId);
 
@@ -111,6 +112,30 @@ export default function Group() {
       }
      }
 
+     async function leaveGroup() {
+      try {
+        const response = await fetch('http://localhost:3006/users/leave', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            groupId: groupId,
+          }),
+        });
+    
+        if (response.ok) {
+          console.log('User successfully left the group');
+          window.location.href = "/";
+        } else {
+          console.log("Error leaving group");
+        }
+      } catch (error) {
+        console.error('Error leaving group:', error);
+      }
+    }
+    
      return (
         <div className="container mx-auto p-6">
           <h2 className="text-3xl font-bold mb-4">Group Code - {groupCode}</h2>
@@ -123,6 +148,13 @@ export default function Group() {
               ))}
             </ul>
           </div>
+          <button
+            type="button"
+            onClick={leaveGroup}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-5"
+          >
+            Leave Group
+          </button>
           <div className="mb-4">
             <h3 className="text-xl font-semibold mb-2">Events</h3>
             <ul className="list-none p-0">
