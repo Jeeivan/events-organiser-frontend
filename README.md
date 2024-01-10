@@ -18,9 +18,11 @@
 
 ## Deployment Link
 
-()
+Currently in the process of being deployed
 
 ## Technologies Used
+
+Tailwind CSS HTML Vanilla Javascript ES6 MongoDB Mongoose Node.js Vue.js Express React
 
 ## Planning
 
