@@ -30,6 +30,10 @@ Allows users to create their own groups with unique codes and within groups allo
 
 **Sign up/Login Pages**
 
+Using email and password for login
+
+If user does not have a login, there will be a reigister hyperlink to take user to the sign up page
+
 **Create Group**
 
 Ask user to input Name of group
@@ -80,3 +84,5 @@ Input description for event
 ## Bugs
 
 ## Future Improvements
+
+To get experience using useContext in React so that I do not have to rely on the local storage to pass information between different pages
