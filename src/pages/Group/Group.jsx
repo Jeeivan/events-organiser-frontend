@@ -13,6 +13,7 @@ export default function Group() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [groupMembers, setGroupMembers] = useState([]);
+  const [isFormOpen, setIsFormOpen] = useState(false)
   const email = localStorage.getItem('email')
 
   console.log(groupId);
@@ -104,6 +105,7 @@ export default function Group() {
           setLocation('');
           setDate('');
           setTime('');
+          setIsFormOpen(false)
         } else {
           console.log("Failed to create event");
         }
@@ -169,6 +171,9 @@ export default function Group() {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-2">Create Event</h3>
+            <button type='button' onClick={() => setIsFormOpen(!isFormOpen)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 mb-2">{isFormOpen ? 'Close Form' : 'Open Form'}</button>
+            {isFormOpen && (
+
             <form>
           <label className="block mb-2">
             <span className="text-gray-700">Name:</span>
@@ -228,6 +233,7 @@ export default function Group() {
             Create Event
           </button>
         </form>
+        )}
           </div>
         </div>
       );
