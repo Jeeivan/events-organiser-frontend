@@ -79,7 +79,15 @@ Input description for event
 
 ## Wins
 
+Being able to setup the authentication myself despite the amount of difficulty I have had with authentication in previous projects
+
+![Authentication](authentication.png)
+
 ## Key Learnings/Takeaways
+
+I have found what works for me is getting the backend server side of the project functioning initially and checking with my endpoints are working with postman help me to have an easier time with working on the front end after
+
+![Server Side Image](server.png)
 
 ## Bugs
 
