@@ -137,6 +137,7 @@ export default function Home() {
         </button>
       </div>
     </div>
+    <h4 className="text-xl font-semibold mb-2 mt-8">Upcoming Events</h4>
   </div>
 );
 }

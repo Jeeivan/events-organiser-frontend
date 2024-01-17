@@ -191,8 +191,9 @@ return (
           <h3 className="text-3xl font-bold mb-4">Event Details:</h3>
           <p className="mb-2">{events.name}</p>
           <p className="mb-2">{events.description}</p>
-          <p className="mb-2">{events.location}</p>
-          <p className="mb-4">{events.date}</p>
+          <p className="mb-2">Location- {events.location}</p>
+          <p className="mb-2">Date- {events.date}</p>
+          <p className="mb-2">Time- {events.time}</p>
           <button
             onClick={deleteEvent}
             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 mr-5"
