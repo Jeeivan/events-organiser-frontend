@@ -190,7 +190,7 @@ return (
         <div>
           <h3 className="text-3xl font-bold mb-4">Event Details:</h3>
           <p className="mb-2">{events.name}</p>
-          <p className="mb-2">{events.description}</p>
+          <p className="mb-2">Plan- {events.description}</p>
           <p className="mb-2">Location- {events.location}</p>
           <p className="mb-2">Date- {events.date}</p>
           <p className="mb-2">Time- {events.time}</p>
@@ -252,12 +252,14 @@ return (
       <div>
         <h3 className="text-3xl font-bold mb-4">Chat</h3>
         <ul className="mb-4">
-          {messages.map((message) => (
+          {messages.map((message, index) => (
             <li key={message._id} className="mb-4">
-              <p className="text-gray-700">
-                {message.userName} says at{" "}
-                {new Date(message.date).toLocaleTimeString()}
-              </p>
+            <p className="text-gray-700">
+              {message.userName} says
+              {index === messages.length - 1 && (
+                <> at {new Date(message.date).toLocaleString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</>
+              )}
+            </p>
               <p>{message.message}</p>
             </li>
           ))}
