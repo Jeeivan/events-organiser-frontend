@@ -19,11 +19,11 @@ Allows users to create their own groups with unique codes and within groups allo
 
 ## Deployment Link
 
-Currently in the process of being deployed
+In the process of adding new features before deploying application
 
 ## Technologies Used
 
-Tailwind CSS HTML Vanilla Javascript ES6 MongoDB Mongoose Node.js Vue.js Express React
+Tailwind CSS HTML Vanilla Javascript ES6 MongoDB Mongoose Node.js Express React
 
 ## Planning
 
@@ -74,9 +74,128 @@ Input description for event
 
 ## Build Process
 
+**Setting up my backend**
+
+One of my first objectives was setting up the schemas for all the entities I would be using in my application
+
+```
+const userSchema = new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    groupIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Group',
+    }],
+});
+
+export const User = mongoose.model('User', userSchema)
+
+```
+
+**Creating Groups**
+
+It would not have been possible to create events for the group without first creating the groups. Therefore, I prioritized the creation of groups, as I knew I would be able to test this feature before setting up authentication. I wanted to defer the authentication setup to a later stage, as I anticipated it would require more time to complete.
+
+```
+export async function createGroup (req, res) {
+    try {
+        let generatedCode;
+        let existingGroup = true;
+
+        while (existingGroup) {
+            // Generate a 4-digit code
+            generatedCode = Math.floor(1000 + Math.random() * 9000);
+
+            // Check if a group with the generated code already exists
+            existingGroup = await Group.findOne({ code: generatedCode });
+        }
+
+        // Create a new Group instance with the unique generated code
+        const group = new Group({
+            name: req.body.name,
+            code: generatedCode,
+        });
+
+        // Save the new group to the database
+        await group.save();
+
+        // Return the created group in the response
+        res.json(group);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+export async function joinGroup(req, res) {
+    try {
+        const { email } = req.params;
+        const { groupCode } = req.body;
+
+        // Check if the user exists based on the provided email
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Check if the group exists
+        const group = await Group.findOne({ code: groupCode });
+        if (!group) {
+            return res.status(404).json({ message: "Group not found" });
+        }
+
+        // Update the user with the groupId
+        await User.findByIdAndUpdate(user._id, {
+            $addToSet: { groupIds: group._id },
+        });
+
+        res.json({ message: "User joined the group successfully" });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+```
+
+**Creating events**
+
+This part was fairly straightforward for me, as I could leverage my previous experience with using forms to send data to the database. I applied a similar method when creating events for each group.
+
+```
+export async function createEvent (req, res) {
+    try {
+
+        const { groupId } = req.params;
+
+        // Create Event
+        const event = new Event({
+            name: req.body.name,
+            description: req.body.description,
+            location: req.body.location,
+            date: req.body.date,
+            time: req.body.time,
+            groupId: groupId, // referencing the group ID
+        })
+        await event.save()
+        res.json(event)
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+```
+
 ## Challenges
 
-Had a challenge during the coding of my authentication as I would need to make sure the passwords of the users were decrypted in the databases but I needed to make sure to account for the decrypting the password when checking the password to log a user in 
+Had a challenge during the coding of my authentication as I would need to make sure the passwords of the users were decrypted in the databases but I needed to make sure to account for the decrypting the password when checking the password to log a user in .
 
 ```
 export async function login(req, res) {
