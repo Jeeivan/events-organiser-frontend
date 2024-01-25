@@ -120,7 +120,7 @@ export default function Home() {
     </div>
 
     <div className="text-center">
-      <h4 className="text-xl font-semibold mb-2">Create a Group</h4>
+      <h4 className="text-xl font-semibold mb-2">Create a Group!</h4>
       <div className="flex items-center justify-center space-x-4">
         <input
           type="text"
