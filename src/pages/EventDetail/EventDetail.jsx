@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 export default function EventDetail() {
     const { eventId } = useParams();
     const [events, setEvents] = useState([]);
+    const [eventComplete, setEventComplete] = useState(false)
     const [groupMembers, setGroupMembers] = useState([]);
     const [messages, setMessages] = useState([])
     const [eventMessage, setEventMessage] = useState('')
@@ -19,6 +20,10 @@ export default function EventDetail() {
           const data = await response.json();
           if (response.ok) {
             setEvents(data);
+            // Check if event has occured
+            const eventDate = new Date(data.date)
+            const currentDate = new Date()
+            setEventComplete(eventDate < currentDate)
           } else {
             console.log('Failed to fetch events');
           }
@@ -74,11 +79,6 @@ export default function EventDetail() {
         }
       };
 
-    //   useEffect(() => {
-    //     if (groupId) {
-    //       fetchGroupMembers();
-    //     }
-    //   }, [groupId]);
 
 async function createMessage() {
     try {
@@ -194,12 +194,16 @@ return (
           <p className="mb-2">Location- {events.location}</p>
           <p className="mb-2">Date- {events.date}</p>
           <p className="mb-2">Time- {events.time}</p>
+          {eventComplete ? (
+            <p className="text-red-500 font-bold mb-2">This event has already taken place.</p>
+          ) : (
           <button
             onClick={deleteEvent}
             className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 mr-5"
           >
             Delete Event
           </button>
+          )}
           <Link to={`/groupdetailpage/${groupCode}`}>
             <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">
               Create Event
@@ -235,6 +239,9 @@ return (
               );
             })}
           </ul>
+          {eventComplete ? (
+            '' ) : (
+              <>
           <button
             onClick={setGoing}
             className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-4"
@@ -247,6 +254,8 @@ return (
           >
             Not Going
           </button>
+          </>
+            )}
         </div>
       </div>
       <div>
