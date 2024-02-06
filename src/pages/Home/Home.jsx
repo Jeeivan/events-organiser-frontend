@@ -7,8 +7,8 @@ export default function Home() {
   const [events, setEvents] = useState([]);
   const [attendance, setAttendance] = useState([]);
   const [name, setName] = useState("");
-  const [noEvents, setNoEvents] = useState(false);
-  const [noRecentEvents, setNoRecentEvents] = useState(false);
+  // const [noEvents, setNoEvents] = useState(false);
+  // const [noRecentEvents, setNoRecentEvents] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date())
   const user = localStorage.getItem('name');
 
@@ -61,11 +61,13 @@ export default function Home() {
   useEffect(() => {
     fetchUserGroups();
     fetchAttendance()
-  }, [user]); // Empty dependency array ensures it runs only once after the initial render
+    // eslint-disable-next-line
+  }, [user]);
 
   useEffect(() => {
     fetchEvents();
-  }, [userGroups]); // Empty dependency array ensures it runs only once after the initial render
+    // eslint-disable-next-line
+  }, [userGroups]); 
 
   const joinGroup = async (code) => {
     try {
@@ -253,29 +255,30 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="text-center">
-        <h2 className="upcoming-header">Upcoming Events</h2>
-        <hr />
+      <div className="text-center mb-8">
+        <hr className="border-t-2 border-gray-300 mb-4 mt-8"/>
+        <h2 className="text-2x1 font-semibold mb-4 text-blue-500">Upcoming Events</h2>
         {events.map((event, index) => (
           <div key={index}>
             {checkAttending(event) &&
               compareDates(event.date) &&
-              <div>You have <span onClick={() => window.location.href = `/event/${event._id}`}>{event.name}</span> in {compareDates(event.date)} with {findGroup(event)}</div>
+              <div>You have <span className="text-blue-500 cursor-pointer" onClick={() => window.location.href = `/event/${event._id}`}>{event.name}</span> in {compareDates(event.date)} with {findGroup(event)}</div>
             }
           </div>
         ))}
-        <hr />
-        <h2 className="upcoming-header">Recent Events</h2>
-        <hr />
+        <hr className="border-t-2 border-gray-300 mb-4 mt-4"/>
+        
+        <h2 className="text-2x1 font-semibold mb-4 text-red-500">Recent Events</h2>
+        
         {events.map((event, index) => (
           <div key={index}>
             {checkAttending(event) &&
               compareRecentDates(event.date) &&
-              <div>You had <span onClick={() => window.location.href = `/event/${event._id}`}>{event.name}</span> {compareRecentDates(event.date)} ago with {findGroup(event)}</div>
+              <div>You had <span className="text-red-500 cursor-pointer" onClick={() => window.location.href = `/event/${event._id}`}>{event.name}</span> {compareRecentDates(event.date)} days ago with {findGroup(event)}</div>
             }
           </div>
         ))}
-        <hr />
+       <hr className="border-t-2 border-gray-300 mb-4 mt-4"/>
       </div>
     </div>
   );
