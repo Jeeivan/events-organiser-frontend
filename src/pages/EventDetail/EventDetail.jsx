@@ -21,9 +21,10 @@ export default function EventDetail() {
           if (response.ok) {
             setEvents(data);
             // Check if event has occured
-            const eventDate = new Date(data.date)
+            const dateParts = data.date.split('/'); // Split date string into components
+            const eventDate = new Date(`${dateParts[1]}/${dateParts[0]}/${dateParts[2]}`);
             const currentDate = new Date()
-            setEventComplete(eventDate < currentDate)
+            setEventComplete(eventDate < currentDate);
           } else {
             console.log('Failed to fetch events');
           }
@@ -239,8 +240,7 @@ return (
               );
             })}
           </ul>
-          {eventComplete ? (
-            '' ) : (
+          {!eventComplete && (
               <>
           <button
             onClick={setGoing}

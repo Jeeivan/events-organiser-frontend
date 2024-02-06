@@ -129,36 +129,27 @@ export default function Home() {
   }
 
   function compareDates(date) {
-    const newDate = date[3] + date[4] + '/' + date[0] + date[1] + '/' + date[6] + date[7] + date[8] + date[9]
+    const newDate = date[3] + date[4] + '/' + date[0] + date[1] + '/' + date[6] + date[7] + date[8] + date[9];
     const dateString = newDate;
     const dateObject = new Date(dateString);
-    const maxDays = getDays(currentDate.getFullYear(), currentDate.getMonth() + 1)
-    if (dateObject.getFullYear() === currentDate.getFullYear()) {
-      if (dateObject.getMonth() === currentDate.getMonth()) {
-        if (dateObject.getDate() === currentDate.getDate()) {
-          return 'Today'
-        } else if (dateObject.getDate() - currentDate.getDate() < 7) {
-          if (dateObject.getDate() - currentDate.getDate() === 1) {
-            return dateObject.getDate() - currentDate.getDate() + ' day'
-          } else {
-          return dateObject.getDate() - currentDate.getDate() + ' days'
-        }
-      }else {
-        return false
-      }
-      } else if (dateObject.getMonth() - currentDate.getMonth() === 1) {
-        if(maxDays - currentDate.getDate() + dateObject.getDate() <= 7){
-          return maxDays - currentDate.getDate() + dateObject.getDate() + ' days'
-        } else {
-          return false
-        }
+    
+    // Adjusted logic to account for events occurring today as upcoming
+    if (dateObject >= currentDate) {
+      const diffTime = Math.abs(dateObject - currentDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+      
+      if (diffDays === 0) {
+        return 'Today';
+      } else if (diffDays === 1) {
+        return 'Tomorrow';
       } else {
-        return false
+        return diffDays + ' days';
       }
     } else {
-      return false
+      return false;
     }
   }
+  
 
   function compareRecentDates(date) {
     const newDate = date[3] + date[4] + '/' + date[0] + date[1] + '/' + date[6] + date[7] + date[8] + date[9]
