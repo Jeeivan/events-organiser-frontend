@@ -16,7 +16,7 @@ export default function EventDetail() {
 
     const fetchEvents = async () => {
         try {
-          const response = await fetch(`http://localhost:3006/event/display/single/${eventId}`);
+          const response = await fetch(`${process.env.BACKEND_API}event/display/single/${eventId}`);
           const data = await response.json();
           if (response.ok) {
             setEvents(data);
@@ -52,7 +52,7 @@ export default function EventDetail() {
 
     const fetchMessages = async () => {
         try {
-            const response = await fetch(`http://localhost:3006/chat/display/${eventId}`);
+            const response = await fetch(`${process.env.BACKEND_API}chat/display/${eventId}`);
             const data = await response.json()
             if (response.ok) {
                 setMessages(data)
@@ -67,7 +67,7 @@ export default function EventDetail() {
 
       const fetchGroupMembers = async () => {
         try {
-          const response = await fetch(`http://localhost:3006/users/display/${groupId}`);
+          const response = await fetch(`${process.env.BACKEND_API}users/display/${groupId}`);
           const data = await response.json();
     
           if (response.ok) {
@@ -83,7 +83,7 @@ export default function EventDetail() {
 
 async function createMessage() {
     try {
-        const response = await fetch(`http://localhost:3006/chat/create/${eventId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}chat/create/${eventId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -108,7 +108,7 @@ async function createMessage() {
 
 async function deleteEvent() {
     try {
-        const response = await fetch(`http://localhost:3006/event/delete/${eventId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}event/delete/${eventId}`, {
             method: "DELETE"
         })
         if (response.ok) {
@@ -125,7 +125,7 @@ async function deleteEvent() {
 
 async function displayAttendance() {
     try {
-        const response = await fetch(`http://localhost:3006/attendance/display/${eventId}`)
+        const response = await fetch(`${process.env.BACKEND_API}attendance/display/${eventId}`)
         const data = await response.json();
 
         if (response.ok) {
@@ -140,7 +140,7 @@ async function displayAttendance() {
 
 async function setGoing() {
     try {
-        const response = await fetch(`http://localhost:3006/attendance/set/${eventId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}attendance/set/${eventId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -163,7 +163,7 @@ async function setGoing() {
 }
 async function setNotGoing() {
     try {
-        const response = await fetch(`http://localhost:3006/attendance/set/${eventId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}attendance/set/${eventId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

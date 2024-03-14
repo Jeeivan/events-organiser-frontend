@@ -7,7 +7,7 @@ export default function Login() {
 
     async function login() {
         try {
-            const response = await fetch(`http://localhost:3006/users/login`, {
+            const response = await fetch(`${process.env.BACKEND_API}users/login`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

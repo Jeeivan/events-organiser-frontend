@@ -20,7 +20,7 @@ export default function Group() {
 
   async function fetchGroupId() {
     try {
-        const response = await fetch(`http://localhost:3006/group/display/single/${groupCode}`)
+        const response = await fetch(`${process.env.BACKEND_API}group/display/single/${groupCode}`)
         const data = await response.json()
         console.log(data);
 
@@ -37,7 +37,7 @@ export default function Group() {
 
       const fetchGroupMembers = async () => {
         try {
-          const response = await fetch(`http://localhost:3006/users/display/${groupId}`);
+          const response = await fetch(`${process.env.BACKEND_API}users/display/${groupId}`);
           const data = await response.json();
     
           if (response.ok) {
@@ -52,7 +52,7 @@ export default function Group() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`http://localhost:3006/event/display/${groupCode}`);
+      const response = await fetch(`${process.env.BACKEND_API}event/display/${groupCode}`);
       const data = await response.json();
       console.log(data);
 
@@ -82,7 +82,7 @@ export default function Group() {
 
   async function createEvent() {
     try {
-        const response = await fetch(`http://localhost:3006/event/create/${groupId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}event/create/${groupId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export default function Group() {
 
      async function leaveGroup() {
       try {
-        const response = await fetch('http://localhost:3006/users/leave', {
+        const response = await fetch(`${process.env.BACKEND_API}users/leave`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
