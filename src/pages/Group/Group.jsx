@@ -77,6 +77,7 @@ export default function Group() {
     if (groupId) {
       fetchGroupMembers();
     }
+    // eslint-disable-next-line
   }, [groupId]);
 
   async function createEvent() {
