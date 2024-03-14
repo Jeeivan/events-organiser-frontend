@@ -7,7 +7,7 @@ export default function Login() {
 
     async function login() {
         try {
-            const response = await fetch(`${process.env.BACKEND_API}users/login`, {
+            const response = await fetch(`https://events-organiser-backend-production.up.railway.app/users/login`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
