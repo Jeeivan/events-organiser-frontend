@@ -15,7 +15,7 @@ export default function SignUp() {
                 return 
             }
 
-            const response = await fetch(`${process.env.BACKEND_API}users/register`, {
+            const response = await fetch(`https://events-organiser-backend-production.up.railway.app/users/register`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
