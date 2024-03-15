@@ -82,7 +82,7 @@ export default function Group() {
 
   async function createEvent() {
     try {
-        const response = await fetch(`${process.env.BACKEND_API}event/create/${groupId}`, {
+        const response = await fetch(`${process.env.BACKEND_API}/event/create/${groupId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
