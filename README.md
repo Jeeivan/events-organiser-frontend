@@ -19,7 +19,7 @@ Allows users to create their own groups with unique codes and within groups allo
 
 ## Deployment Link
 
-In the process of adding new features before deploying application
+https://events-organiser-frontend-production.up.railway.app/
 
 ## Technologies Used
 
