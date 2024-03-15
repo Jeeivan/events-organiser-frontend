@@ -20,7 +20,7 @@ export default function Group() {
 
   async function fetchGroupId() {
     try {
-        const response = await fetch(`${process.env.BACKEND_API}group/display/single/${groupCode}`)
+        const response = await fetch(`https://events-organiser-backend-production.up.railway.app/group/display/single/${groupCode}`)
         const data = await response.json()
         console.log(data);
 
@@ -37,7 +37,7 @@ export default function Group() {
 
       const fetchGroupMembers = async () => {
         try {
-          const response = await fetch(`${process.env.BACKEND_API}users/display/${groupId}`);
+          const response = await fetch(`https://events-organiser-backend-production.up.railway.app/users/display/${groupId}`);
           const data = await response.json();
     
           if (response.ok) {
@@ -52,7 +52,7 @@ export default function Group() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_API}event/display/${groupCode}`);
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/event/display/${groupCode}`);
       const data = await response.json();
       console.log(data);
 
@@ -82,7 +82,7 @@ export default function Group() {
 
   async function createEvent() {
     try {
-        const response = await fetch(`${process.env.BACKEND_API}/event/create/${groupId}`, {
+        const response = await fetch(`https://events-organiser-backend-production.up.railway.app/event/create/${groupId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export default function Group() {
 
      async function leaveGroup() {
       try {
-        const response = await fetch(`${process.env.BACKEND_API}users/leave`, {
+        const response = await fetch(`https://events-organiser-backend-production.up.railway.app/users/leave`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

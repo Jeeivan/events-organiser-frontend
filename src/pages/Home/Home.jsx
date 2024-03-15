@@ -15,7 +15,7 @@ export default function Home() {
   const fetchUserGroups = async () => {
     try {
       const userEmail = localStorage.getItem('email');
-      const response = await fetch(`${process.env.BACKEND_API}group/display/${userEmail}`);
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/group/display/${userEmail}`);
       const data = await response.json();
       setUserGroups(data);
     } catch (error) {
@@ -25,7 +25,7 @@ export default function Home() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch(`${process.env.BACKEND_API}event/displayAll`);
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/event/displayAll`);
       const data = await response.json();
       const filteredEvents = data.filter((event) => userGroups.some((group) => group._id === event.groupId));
       setEvents(filteredEvents)
@@ -37,7 +37,7 @@ export default function Home() {
   const fetchAttendance = async () => {
     try {
       const userEmail = localStorage.getItem('email');
-      const response = await fetch(`${process.env.BACKEND_API}attendance/display/user/${userEmail}`);
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/attendance/display/user/${userEmail}`);
       const data = await response.json();
       setAttendance(data)
     } catch (error) {
@@ -77,7 +77,7 @@ export default function Home() {
         groupCode: code || groupCode,
       };
 
-      const response = await fetch(`${process.env.BACKEND_API}group/join/${userEmail}`, {
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/group/join/${userEmail}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export default function Home() {
 
   async function createGroup() {
     try {
-      const response = await fetch(`${process.env.BACKEND_API}group/create/`, {
+      const response = await fetch(`https://events-organiser-backend-production.up.railway.app/group/create/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
