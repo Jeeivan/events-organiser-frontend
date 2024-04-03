@@ -23,7 +23,7 @@ https://events-organiser-frontend-production.up.railway.app/
 
 ## Technologies Used
 
-Tailwind CSS HTML Vanilla Javascript ES6 MongoDB Mongoose Node.js Express React
+React Express Node.js MongoDB Tailwind CSS HTML Vanilla Javascript ES6
 
 ## Planning
 
