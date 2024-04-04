@@ -51,9 +51,9 @@ Entering this will add this user to the groups users attribute
 
 Show all events - Each of these are clickable
 
-Show all users of the group
+Show all users in the group
 
-Display unique code
+Display unique code for the group
 
 Create Event button
 
