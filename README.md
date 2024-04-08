@@ -274,7 +274,7 @@ Being able to make a group chat that dynamically renders so a user is able to st
 
 ## Key Learnings/Takeaways
 
-I have found what works for me is getting the backend server side of the project functioning initially and checking with my endpoints are working with postman help me to have an easier time with working on the front end after
+I have found what worked for me was getting the backend server side of the project functioning initially and checking the endpoints were working with postman helped me to have an easier time when working on the front end after
 
 ```
 export async function createEvent (req, res) {
