@@ -311,6 +311,6 @@ export async function displayAllEvents(req, res) {
 
 ## Future Improvements
 
-- To get experience using useContext in React so that I do not have to rely on the local storage to pass information between different pages
+- To get experience with useContext in React so that I do not have to rely on the local storage to pass information between different pages
 
 - To convert the React.js into TypeScript files instead to get more experience with using this and using a different approach then coding the whole project with TypeScript from the beginnning
